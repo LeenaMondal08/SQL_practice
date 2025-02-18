@@ -1,0 +1,12 @@
+select len('leena');
+select substring('leenamondal',5,4);
+select lower('LEENA');
+select UPPER('leena');
+select reverse('LEENA');
+select replace('hy uoi','uoi','ty');
+select trim(' ' from ' hello world');
+select rtrim('hello world','l');
+select ascii('q');
+select concat('leena','mondal');
+select left('seena',4);
+select right('seena',2);
