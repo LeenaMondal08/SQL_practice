@@ -1,0 +1,110 @@
+SQL> CRAETE TABLE EMP11
+SP2-0734: unknown command beginning "CRAETE TAB..." - rest of line ignored.
+SQL> CREAT TABLE EMP11
+SP2-0734: unknown command beginning "CREAT TABL..." - rest of line ignored.
+SQL> CREATE TABLE WMP11
+  2  (E_NO NUMBER(10) PRIMARY KEY,
+  3  E_NAME VARCHAR(20),
+  4  E_SAL NUMBER(10,2),
+  5  PROFESION VARCHAR2(10),
+  6  HIRE_DATE DATE);
+
+Table created.
+
+SQL> DESC WMP11;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ E_NO                                      NOT NULL NUMBER(10)
+ E_NAME                                             VARCHAR2(20)
+ E_SAL                                              NUMBER(10,2)
+ PROFESION                                          VARCHAR2(10)
+ HIRE_DATE                                          DATE
+
+SQL> ALTER TABLE WPM11 TO EMP11;
+ALTER TABLE WPM11 TO EMP11
+                  *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option 
+
+
+SQL> RENAME WMP11 TO EMP11;
+
+Table renamed.
+
+SQL> DESC EMP11;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ E_NO                                      NOT NULL NUMBER(10)
+ E_NAME                                             VARCHAR2(20)
+ E_SAL                                              NUMBER(10,2)
+ PROFESION                                          VARCHAR2(10)
+ HIRE_DATE                                          DATE
+
+SQL> INSERT INTO EMP11 VALUES(&E_NO,&E_NAME,&E_SAL,&PROFESION,&HIRE_DATE);
+Enter value for e_no: 1
+Enter value for e_name: 'SMITH'
+Enter value for e_sal: 200000
+Enter value for profesion: 'SALES'
+Enter value for hire_date: '02-FEB-2026'
+old   1: INSERT INTO EMP11 VALUES(&E_NO,&E_NAME,&E_SAL,&PROFESION,&HIRE_DATE)
+new   1: INSERT INTO EMP11 VALUES(1,'SMITH',200000,'SALES','02-FEB-2026')
+
+1 row created.
+
+SQL> /
+Enter value for e_no: 2
+Enter value for e_name: 'TURNER'
+Enter value for e_sal: 40000
+Enter value for profesion: 'IT'
+Enter value for hire_date: '09-JAN-2025'
+old   1: INSERT INTO EMP11 VALUES(&E_NO,&E_NAME,&E_SAL,&PROFESION,&HIRE_DATE)
+new   1: INSERT INTO EMP11 VALUES(2,'TURNER',40000,'IT','09-JAN-2025')
+
+1 row created.
+
+SQL> /
+Enter value for e_no: 3
+Enter value for e_name: 'MILLER'
+Enter value for e_sal: 30000
+Enter value for profesion: 'IT'
+Enter value for hire_date: '06-DEC-2025'
+old   1: INSERT INTO EMP11 VALUES(&E_NO,&E_NAME,&E_SAL,&PROFESION,&HIRE_DATE)
+new   1: INSERT INTO EMP11 VALUES(3,'MILLER',30000,'IT','06-DEC-2025')
+
+1 row created.
+
+SQL> /
+Enter value for e_no: 4
+Enter value for e_name: 'WARD'
+Enter value for e_sal: 1000
+Enter value for profesion: 'CLEARK'
+Enter value for hire_date: '05-MAY-2025'
+old   1: INSERT INTO EMP11 VALUES(&E_NO,&E_NAME,&E_SAL,&PROFESION,&HIRE_DATE)
+new   1: INSERT INTO EMP11 VALUES(4,'WARD',1000,'CLEARK','05-MAY-2025')
+
+1 row created.
+
+SQL> /
+Enter value for e_no: 5
+Enter value for e_name: 'KING'
+Enter value for e_sal: 5000
+Enter value for profesion: 'MANAGER'
+Enter value for hire_date: '12-JAN-2026'
+old   1: INSERT INTO EMP11 VALUES(&E_NO,&E_NAME,&E_SAL,&PROFESION,&HIRE_DATE)
+new   1: INSERT INTO EMP11 VALUES(5,'KING',5000,'MANAGER','12-JAN-2026')
+
+1 row created.
+
+SQL> SELECT * FROM EMP11;
+
+      E_NO E_NAME                    E_SAL PROFESION  HIRE_DATE                 
+---------- -------------------- ---------- ---------- ---------                 
+         1 SMITH                    200000 SALES      02-FEB-26                 
+         2 TURNER                    40000 IT         09-JAN-25                 
+         3 MILLER                    30000 IT         06-DEC-25                 
+         4 WARD                       1000 CLEARK     05-MAY-25                 
+         5 KING                       5000 MANAGER    12-JAN-26                 
+
+SQL> SPOLL OF;
+SP2-0042: unknown command "SPOLL OF" - rest of line ignored.
+SQL> SPOOL OFF;

@@ -1,0 +1,256 @@
+SQL> SELECT * FROM EMP11;
+
+      E_NO E_NAME                    E_SAL PROFESION  HIRE_DATE                 
+---------- -------------------- ---------- ---------- ---------                 
+         1 SMITH                    200000 SALES      02-FEB-26                 
+         2 TURNER                    40000 IT         09-JAN-25                 
+         3 MILLER                    30000 IT         06-DEC-25                 
+         4 WARD                       1000 CLEARK     05-MAY-25                 
+         5 KING                       5000 MANAGER    12-JAN-26                 
+
+SQL> SELECT E_SAL*12 AS ANNUAL_SALARY
+  2  FROM EMP11
+  3  WHERE NAME='SMITH';
+WHERE NAME='SMITH'
+      *
+ERROR at line 3:
+ORA-00904: "NAME": invalid identifier 
+
+
+SQL> SELECT E_SAL*12 AS ANNUAL_SALARY
+  2  FROM EMP11
+  3  WHERE E_NAME='SMITH';
+
+ANNUAL_SALARY                                                                   
+-------------                                                                   
+      2400000                                                                   
+
+SQL> SELECT E_NAME
+  2  FROM EMP11
+  3  WHERE PROFESION='CLEARK';
+
+E_NAME                                                                          
+--------------------                                                            
+WARD                                                                            
+
+SQL> SELECT E_NAME
+  2  FROM EMP11
+  3  WHERE PROFESION='SALES';
+
+E_NAME                                                                          
+--------------------                                                            
+SMITH                                                                           
+
+SQL> SELECT *
+  2  FROM EMP11
+  3  WHERE E_SAL>2000
+  4  
+SQL> SELECT *
+  2  FROM EMP11
+  3  WHERE E_SAL>2000;
+
+      E_NO E_NAME                    E_SAL PROFESION  HIRE_DATE                 
+---------- -------------------- ---------- ---------- ---------                 
+         1 SMITH                    200000 SALES      02-FEB-26                 
+         2 TURNER                    40000 IT         09-JAN-25                 
+         3 MILLER                    30000 IT         06-DEC-25                 
+         5 KING                       5000 MANAGER    12-JAN-26                 
+
+SQL> SELECT * FROM EMP
+  2  WHERE E_NAME='JNONE';
+SELECT * FROM EMP
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT *
+  2  FROM EMP11
+  3  EHERE E_NAME='JNONE';
+EHERE E_NAME='JNONE'
+      *
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT * FROM EMP11
+  2  WHERE E_NAME='JNON';
+
+no rows selected
+
+SQL> SELECT E_NAME ,E_SAL, E_SAL*12 "ANNUAL SALARY"
+  2  FROM EMP11
+  3  WHERE E_SAL*12>12000;
+
+E_NAME                    E_SAL ANNUAL SALARY                                   
+-------------------- ---------- -------------                                   
+SMITH                    200000       2400000                                   
+TURNER                    40000        480000                                   
+MILLER                    30000        360000                                   
+KING                       5000         60000                                   
+
+SQL> SELECT * FROM DEPTARTMENTS;
+SELECT * FROM DEPTARTMENTS
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT * FROM DEPARTMENT;
+SELECT * FROM DEPARTMENT
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT E_NAME,HIRE_DATE
+  2  FROM EMP11
+  3  WHERE HIRE_DATE<'01-JAN-1981';
+
+no rows selected
+
+SQL> SELECT 8
+  2  
+SQL> SELECT *
+  2  FROM EMP11
+  3  WHERE PROFESION='MANAGER';
+
+      E_NO E_NAME                    E_SAL PROFESION  HIRE_DATE                 
+---------- -------------------- ---------- ---------- ---------                 
+         5 KING                       5000 MANAGER    12-JAN-26                 
+
+SQL> ALTER TABLE EMP11
+  2  ADD COMMISION NUMBER(10,2);
+
+Table altered.
+
+SQL> INSERT INTO EMP11 (COMMISION) VALUES(&COMMISION);
+Enter value for commision: 2000
+old   1: INSERT INTO EMP11 (COMMISION) VALUES(&COMMISION)
+new   1: INSERT INTO EMP11 (COMMISION) VALUES(2000)
+INSERT INTO EMP11 (COMMISION) VALUES(2000)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SYSTEM"."EMP11"."E_NO") 
+
+
+SQL> INSERT INTO EMP11 (COMMISION) VALUES(2000) WHERE E_N0=2000;
+INSERT INTO EMP11 (COMMISION) VALUES(2000) WHERE E_N0=2000
+                                           *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> INSERT INTO EMP11 (COMMISION) VALUES(2000) WHERE E_N0=1;
+INSERT INTO EMP11 (COMMISION) VALUES(2000) WHERE E_N0=1
+                                           *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> INSERT INTO EMP11 (COMMISION) VALUES(2000) WHERE E_NO=1;
+INSERT INTO EMP11 (COMMISION) VALUES(2000) WHERE E_NO=1
+                                           *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> UPDATE EMP11
+  2  SET COMMISION=2000
+  3  WHERE E_NO=1;
+
+1 row updated.
+
+SQL> UPDATE EMP11
+  2  SET COMMISION=2060
+  3  WHERE E_NO=12;
+
+0 rows updated.
+
+SQL> UPDATE EMP11
+  2  SET COMMISION=2060
+  3  WHERE E_NO=2;
+
+1 row updated.
+
+SQL> UPDATE EMP11
+  2  SET COMMISION=2300
+  3  WHERE E_NO=3;
+
+1 row updated.
+
+SQL> UPDATE EMP11
+  2  SET COMMISION=5000
+  3  WHERE E_NO=4;
+
+1 row updated.
+
+SQL> UPDATE EMP11
+  2  SET COMMISION=4000
+  3  WHERE E_NO=5;
+
+1 row updated.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT 8 FROM EMP11;
+
+         8                                                                      
+----------                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+         8                                                                      
+
+SQL> SELECT * FROM EMP11;
+
+      E_NO E_NAME                    E_SAL PROFESION  HIRE_DATE  COMMISION      
+---------- -------------------- ---------- ---------- --------- ----------      
+         1 SMITH                    200000 SALES      02-FEB-26       2000      
+         2 TURNER                    40000 IT         09-JAN-25       2060      
+         3 MILLER                    30000 IT         06-DEC-25       2300      
+         4 WARD                       1000 CLEARK     05-MAY-25       5000      
+         5 KING                       5000 MANAGER    12-JAN-26       4000      
+
+SQL> SELECT *
+  2  FROM EMP11
+  3  WHERE E_SAL<COMMISION;
+
+      E_NO E_NAME                    E_SAL PROFESION  HIRE_DATE  COMMISION      
+---------- -------------------- ---------- ---------- --------- ----------      
+         4 WARD                       1000 CLEARK     05-MAY-25       5000      
+
+SQL> SELECT E_NO
+  2  FROM EMP11
+  3  WHERE HIRE_DATE<01-JAN-87';
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> SELECT E_NO
+  2  FROM EMP11
+  3  WHERE HIRE_DATE<'01-JAN-87';
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM EMP11
+  3  WHERE PROFESION='ANALYST';
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM EMP11
+  3  WHERE E_SAL>2000;
+
+      E_NO E_NAME                    E_SAL PROFESION  HIRE_DATE  COMMISION      
+---------- -------------------- ---------- ---------- --------- ----------      
+         1 SMITH                    200000 SALES      02-FEB-26       2000      
+         2 TURNER                    40000 IT         09-JAN-25       2060      
+         3 MILLER                    30000 IT         06-DEC-25       2300      
+         5 KING                       5000 MANAGER    12-JAN-26       4000      
+
+SQL> SPOOL OFF;

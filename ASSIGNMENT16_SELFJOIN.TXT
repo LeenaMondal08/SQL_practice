@@ -1,0 +1,194 @@
+SQL> SELECT E1.ENAME,E2.ENAME
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.JOB='CLERK';
+
+ENAME      ENAME                                                                
+---------- ----------                                                           
+JAMES      BLAKE                                                                
+MILLER     CLARK                                                                
+ADAMS      SCOTT                                                                
+SMITH      FORD                                                                 
+
+SQL> SELECT E1.ENAME,E2.JOB
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E2.DEPTNO IN (10,20);
+
+ENAME      JOB                                                                  
+---------- ---------                                                            
+SMITH      ANALYST                                                              
+JONES      PRESIDENT                                                            
+BLAKE      PRESIDENT                                                            
+CLARK      PRESIDENT                                                            
+SCOTT      MANAGER                                                              
+ADAMS      ANALYST                                                              
+FORD       MANAGER                                                              
+MILLER     MANAGER                                                              
+
+8 rows selected.
+
+SQL> SELECT E1.ENAME,E2.SAL
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.SAL>2300 AND E2.SAL>2300;
+
+ENAME             SAL                                                           
+---------- ----------                                                           
+FORD             2975                                                           
+SCOTT            2975                                                           
+CLARK            5000                                                           
+BLAKE            5000                                                           
+JONES            5000                                                           
+
+SQL> SELECT E1.ENAME,E2.HIREDATE
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.HIREDATE<'01-JAN-1982';
+
+ENAME      HIREDATE                                                             
+---------- ---------                                                            
+FORD       02-APR-81                                                            
+JAMES      01-MAY-81                                                            
+TURNER     01-MAY-81                                                            
+MARTIN     01-MAY-81                                                            
+WARD       01-MAY-81                                                            
+ALLEN      01-MAY-81                                                            
+CLARK      17-NOV-81                                                            
+BLAKE      17-NOV-81                                                            
+JONES      17-NOV-81                                                            
+SMITH      03-DEC-81                                                            
+
+10 rows selected.
+
+SQL> SELECT E1.ENAME,E2.COMM
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.JOB='SALESMAN' AND E2.DEPTNO=30;
+
+ENAME            COMM                                                           
+---------- ----------                                                           
+TURNER                                                                          
+MARTIN                                                                          
+WARD                                                                            
+ALLEN                                                                           
+
+SQL> SELECT E1.ENAME,E2.ENAME
+  2  
+SQL> SELECT E1.ENAME,E1.SAL,E2.ENAME,E2.SAL
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.SAL>E2.SAL;
+
+ENAME             SAL ENAME             SAL                                     
+---------- ---------- ---------- ----------                                     
+FORD             3000 JONES            2975                                     
+SCOTT            3000 JONES            2975                                     
+
+SQL> SELECT E1.ENAME,E1.HIREDATE,E2.ENAME,E2.HIREDATE
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.HIREDATE>E2.HIREDATE;
+
+ENAME      HIREDATE  ENAME      HIREDATE                                        
+---------- --------- ---------- ---------                                       
+FORD       03-DEC-81 JONES      02-APR-81                                       
+SCOTT      19-APR-87 JONES      02-APR-81                                       
+JAMES      03-DEC-81 BLAKE      01-MAY-81                                       
+TURNER     08-SEP-81 BLAKE      01-MAY-81                                       
+MARTIN     28-SEP-81 BLAKE      01-MAY-81                                       
+MILLER     23-JAN-82 CLARK      09-JUN-81                                       
+ADAMS      23-MAY-87 SCOTT      19-APR-87                                       
+
+7 rows selected.
+
+SQL> SELECT E1.ENAME,E2.ENAMEA
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.JOB=E2.JOB;
+SELECT E1.ENAME,E2.ENAMEA
+                *
+ERROR at line 1:
+ORA-00904: "E2"."ENAMEA": invalid identifier 
+
+
+SQL> SELECT E1.ENAME,E2.ENAME
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.JOB=E2.JOB;
+
+no rows selected
+
+SQL> SELECT E1.ENAME,E2.ENAME
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E2.JOB='MANAGER';
+
+ENAME      ENAME                                                                
+---------- ----------                                                           
+ALLEN      BLAKE                                                                
+WARD       BLAKE                                                                
+MARTIN     BLAKE                                                                
+SCOTT      JONES                                                                
+TURNER     BLAKE                                                                
+JAMES      BLAKE                                                                
+FORD       JONES                                                                
+MILLER     CLARK                                                                
+
+8 rows selected.
+
+SQL> SELECT E1.ENAME,E1.SAL *12,E2.ENAME,E2.SAL*12
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E1.DEPTNO IN (10,20) AND (E2.SAL>E1.SAL);
+
+ENAME       E1.SAL*12 ENAME       E2.SAL*12                                     
+---------- ---------- ---------- ----------                                     
+MILLER          15600 CLARK           29400                                     
+ADAMS           13200 SCOTT           36000                                     
+CLARK           29400 KING            60000                                     
+JONES           35700 KING            60000                                     
+SMITH            9600 FORD            36000                                     
+
+SQL> SELECT E1.ENAME,E2.JOB
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO;
+
+ENAME      JOB                                                                  
+---------- ---------                                                            
+FORD       MANAGER                                                              
+SCOTT      MANAGER                                                              
+JAMES      MANAGER                                                              
+TURNER     MANAGER                                                              
+MARTIN     MANAGER                                                              
+WARD       MANAGER                                                              
+ALLEN      MANAGER                                                              
+MILLER     MANAGER                                                              
+ADAMS      ANALYST                                                              
+CLARK      PRESIDENT                                                            
+BLAKE      PRESIDENT                                                            
+
+ENAME      JOB                                                                  
+---------- ---------                                                            
+JONES      PRESIDENT                                                            
+SMITH      ANALYST                                                              
+
+13 rows selected.
+
+SQL> SELECT E1.ENAME,E2.SAL
+  2  FROM EMP E1 JOIN EMP E2
+  3  ON E1.MGR=E2.EMPNO
+  4  WHERE E2.SAL LIKE '%50';
+
+ENAME             SAL                                                           
+---------- ----------                                                           
+ALLEN            2850                                                           
+WARD             2850                                                           
+MARTIN           2850                                                           
+TURNER           2850                                                           
+JAMES            2850                                                           
+MILLER           2450                                                           
+
+6 rows selected.
+
+SQL> SPOOL OFF;

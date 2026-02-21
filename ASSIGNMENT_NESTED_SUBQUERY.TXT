@@ -1,0 +1,147 @@
+SQL> SELECT MIN(SAL)
+  2  FROM EMP
+  3  WHERE SAL>(SELECT MIN(SAL)
+  4  FROM EMP);
+
+  MIN(SAL)                                                                      
+----------                                                                      
+       950                                                                      
+
+
+
+
+SQL> SELECT MAX(SAL)
+  2  FROM EMP
+  3  WHERE SAL <(SELECT MAX(SAL)
+  4  FROM EMP
+  5  WHERE SAL <(SELECT MAX(SAL)
+  6  FROM EMP
+  7  WHERE SAL <(SELECT MAX(SAL)
+  8  FROM EMP
+  9  WHERE SAL <(SELECT MAX(SAL)
+ 10  FROM EMP))));
+
+  MAX(SAL)                                                                      
+----------                                                                      
+      2450                                                                      
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE SAL=(SELECT MAX(SAL)
+  4  FROM EMP
+  5  WHERE SAL<(SELECT MAX(SAL)
+  6  FROM EMP
+  7  WHERE SAL<(SELECT MAX(SAL)
+  8  FROM EMP)));
+
+ENAME                                                                           
+----------                                                                      
+JONES                                                                           
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE SAL=(SELECT MAX(SAL)
+  4  FROM EMP
+  5  WHERE SAL<(SELECT MAX(SAL)
+  6  FROM EMP));
+
+ENAME                                                                           
+----------                                                                      
+SCOTT                                                                           
+FORD                                                                            
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE SAL=(SELECT MAX(SAL)
+  6  FROM EMP
+  7  WHERE SAL<(SELECT MAX(SAL)
+  8  FROM EMP
+  9  WHERE SAL<(SELECT MAX(SAL)
+ 10  FROM EMP
+ 11  WHERE SAL<(SELECT MAX(SAL)
+ 12  FROM EMP)))));
+
+DNAME                                                                           
+--------------                                                                  
+SALES                                                                           
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE HIREDATE=(SELECT MIN(HIREDATE)
+  4  FROM EMP
+  5  WHERE HIREDATE>(SELECT MIN(HIREDATE)
+  6  FROM EMP));
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300      
+        30                                                                      
+                                                                                
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE HIREDATE=(SELECT MAX(HIREDATE)
+  4  FROM EMP
+  5  WHERE HIREDATE<(SELECT MAX(HIREDATE)
+  6  FROM EMP));
+
+ENAME                                                                           
+----------                                                                      
+SCOTT                                                                           
+
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE HIREDATE=(SELECT MIN(HIREDATE)
+  6  FROM EMP));
+
+LOC                                                                             
+-------------                                                                   
+DALLAS                                                                          
+
+SQL> SELECT * FROM EMP
+  2  WHERE SAL =(SELECT MIN(SAL)
+  3  FROM EMP
+  4  WHERE SAL>(SELECT MIN(SAL)
+  5  FROM EMP
+  6  WHERE SAL>(SELECT MIN(SAL)
+  7  FROM EMP
+  8  WHERE SAL>(SELECT MIN(SAL)
+  9  FROM EMP
+ 10  WHERE SAL>(SELECT MIN(SAL)
+ 11  FROM EMP
+ 12  WHERE SAL>(SELECT MIN(SAL)
+ 13  FROM EMP
+ 14  WHERE SAL>(SELECT MIN(SAL)
+ 15  FROM EMP)))))));
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300      
+        30                                                                      
+                                                                                
+
+
+
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN (SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE SAL=(SELECT MAX(SAL)
+  6  FROM EMP
+  7  WHERE SAL<(SELECT MAX(SAL)
+  8  FROM EMP)));
+
+DNAME                                                                           
+--------------                                                                  
+RESEARCH                                                                        
+
+SQL> SPOOL OFF;

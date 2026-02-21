@@ -1,0 +1,68 @@
+SQL> SELECT *
+  2  FROM EMPLOYEES;
+
+      E_ID E_NAME                   SALARY                                      
+---------- -------------------- ----------                                      
+         1 leena mondal            4567.89                                      
+         2 priti manna                4530                                      
+         3 sayak doloi                4341                                      
+
+SQL> SELECT E_NAME FROM EMPLOYEES;
+
+E_NAME                                                                          
+--------------------                                                            
+leena mondal                                                                    
+priti manna                                                                     
+sayak doloi                                                                     
+
+SQL> SELECT E_NAME,SALARY FROM EMPLOYEES;
+
+E_NAME                   SALARY                                                 
+-------------------- ----------                                                 
+leena mondal            4567.89                                                 
+priti manna                4530                                                 
+sayak doloi                4341                                                 
+
+SQL> SELECT E_NAME ,SALARY*12 "ANNUAL SALARY"
+  2  FROM EMPLOYEES;
+
+E_NAME               ANNUAL SALARY                                              
+-------------------- -------------                                              
+leena mondal              54814.68                                              
+priti manna                  54360                                              
+sayak doloi                  52092                                              
+
+SQL> SELECT E_NAME ,SALARY+2000 "ANNUAL BONUS"
+  2  FROM EMPLOYEES;
+
+E_NAME               ANNUAL BONUS                                               
+-------------------- ------------                                               
+leena mondal              6567.89                                               
+priti manna                  6530                                               
+sayak doloi                  6341                                               
+
+SQL> SELECT E_NAME,SALARY,SALARY+(SALARY/10) "SALARY HIKE"
+  2  FROM EMPLOYEES;
+
+E_NAME                   SALARY SALARY HIKE                                     
+-------------------- ---------- -----------                                     
+leena mondal            4567.89    5024.679                                     
+priti manna                4530        4983                                     
+sayak doloi                4341      4775.1                                     
+
+SQL> SELECT E_NAME ,SALARY-(SALARY/4) AS NEW_SALARY"
+  2  FROM EMPLOYEES;
+ERROR:
+ORA-01740: missing double quote in identifier 
+
+
+SQL> SELECT E_NAME ,SALARY-(SALARY/4) AS NEW_SALARY
+  2  FROM EMPLOYEES;
+
+E_NAME               NEW_SALARY                                                 
+-------------------- ----------                                                 
+leena mondal          3425.9175                                                 
+priti manna              3397.5                                                 
+sayak doloi             3255.75                                                 
+
+SQL> SPOOL OFF;
