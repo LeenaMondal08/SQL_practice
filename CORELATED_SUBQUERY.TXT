@@ -1,0 +1,190 @@
+SQL> SELECT E1.ENAME,E1.SAL
+  2  FROM EMP
+  3  WHERE 5-1 IN (SELECT COUNT(DISTINCT E2.SAL)
+  4  FROM EMP E2
+  5  WHERE E1.SAL<E2.SAL);
+SELECT E1.ENAME,E1.SAL
+                *
+ERROR at line 1:
+ORA-00904: "E1"."SAL": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E1.ENAME,E1.SAL
+  2  FROM EMP E1
+  3  WHERE 5-1 IN (SELECT COUNT(DISTINCT E2.SAL)
+  4  FROM EMP E2
+  5* WHERE E1.SAL<E2.SAL)
+SQL> /
+
+ENAME             SAL                                                           
+---------- ----------                                                           
+CLARK            2450                                                           
+
+SQL> SELECT E1.*
+  2  FROM EMP E1
+  3  WHERE 4-1 IN (SELECT COUNT(DISTINCT E2.SAL
+  4  FROM EMP E2
+  5  WHERE E1.SAL>E2.SAL);
+FROM EMP E2
+*
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E1.*
+  2  FROM EMP E1
+  3  WHERE 4-1 IN (SELECT COUNT(DISTINCT E2.SAL)
+  4  FROM EMP E2
+  5* WHERE E1.SAL>E2.SAL)
+SQL> /
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+
+SQL> SELECT E1.*
+  2  FROM EMP E1
+  3  WHERE (SELECT COUNT(DISTINCT E2.SAL)
+  4  FROM EMP E2
+  5  WHERE E1.SAL>E2.SAL) IN (1-1,2-1,3-1,4-1,5-1);
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                 
+        20                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E1.*
+  2  FROM EMP E1
+  3  WHERE (SELECT COUNT(DISTINCT E2.SAL)
+  4  FROM EMP E2
+  5* WHERE E1.SAL>E2.SAL) IN (NULL,2-1,3-1,4-1,5-1)
+SQL> /
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E1.*
+  2  FROM EMP E1
+  3  WHERE (SELECT COUNT(DISTINCT E2.SAL)
+  4  FROM EMP E2
+  5* WHERE E1.SAL>E2.SAL) IN (1-1,2-1,3-1,4-1,5-1)
+SQL> /
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                 
+        20                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+6 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E1.SAL
+  2  FROM EMP E1
+  3  WHERE (SELECT COUNT(DISTINCT E2.SAL)
+  4  FROM EMP E2
+  5* WHERE E1.SAL<E2.SAL) IN (1-1,2-1,4-1,6-1,7-1)
+SQL> /
+
+       SAL                                                                      
+----------                                                                      
+      1600                                                                      
+      2850                                                                      
+      3000                                                                      
+      5000                                                                      
+      1500                                                                      
+      3000                                                                      
+
+6 rows selected.
+
+SQL> SPOOL OFF;
